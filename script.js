@@ -1,0 +1,1 @@
+// Fortune Consulting — script.js
