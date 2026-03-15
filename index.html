@@ -10,6 +10,69 @@
 </head>
 <body>
 
+<!-- ══════════════════════════════════════
+     WHATSAPP MODAL
+══════════════════════════════════════ -->
+<div class="modal-overlay" id="wa-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('wa-modal')">&#10005;</button>
+    <div class="modal-icon wa">
+      <svg viewBox="0 0 24 24" fill="#25D366"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/></svg>
+    </div>
+    <h3>Open in WhatsApp</h3>
+    <p>Click the button below to open WhatsApp directly. If it doesn't open, copy the number or download WhatsApp first.</p>
+    <div class="modal-actions">
+      <button class="modal-btn primary" onclick="forceWhatsApp()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/></svg>
+        Open WhatsApp Now
+      </button>
+      <div class="modal-divider"><span>or</span></div>
+      <div class="copy-row">
+        <span class="copy-val" id="wa-copy-display">+27 81 564 8219</span>
+        <button class="copy-btn" id="wa-copy-btn" onclick="copyWaNum()">Copy</button>
+      </div>
+      <a class="modal-btn secondary" href="https://www.whatsapp.com/download" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download WhatsApp Desktop
+      </a>
+    </div>
+    <p class="modal-note">After installing WhatsApp, restart your browser and try again.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     EMAIL MODAL
+══════════════════════════════════════ -->
+<div class="modal-overlay" id="em-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('em-modal')">&#10005;</button>
+    <div class="modal-icon em">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+    </div>
+    <h3>Send an Email</h3>
+    <p>Open Gmail or Outlook in your browser — no mail app needed. Or copy the address and paste it into whichever app you prefer.</p>
+    <div class="modal-actions">
+      <a class="modal-btn primary" id="gmail-btn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        Open in Gmail (browser)
+      </a>
+      <a class="modal-btn secondary" id="outlook-btn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        Open in Outlook Web
+      </a>
+      <button class="modal-btn secondary" onclick="tryMailto()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        Open Mail App (if installed)
+      </button>
+      <div class="modal-divider"><span>or copy address</span></div>
+      <div class="copy-row">
+        <span class="copy-val" id="em-copy-display">dylannfortune@gmail.com</span>
+        <button class="copy-btn" id="em-copy-btn" onclick="copyEmAddr()">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
@@ -21,7 +84,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="https://wa.me/27815648219" class="nav-cta">Book a call</a>
+  <button class="nav-cta" onclick="openWaModal()">Book a call</button>
 </nav>
 
 <!-- HERO -->
@@ -37,7 +100,7 @@
       Fortune Consulting helps small businesses and startups identify, plan and implement the right software solutions — without the jargon or confusion.
     </p>
     <div class="hero-actions">
-      <a href="https://wa.me/27815648219" class="btn-primary">Free consultation</a>
+      <button class="btn-primary" onclick="openWaModal()">Free consultation</button>
       <a href="#about" class="btn-secondary">Learn more</a>
     </div>
   </div>
@@ -97,8 +160,8 @@
         </p>
         <div class="about-card-divider"></div>
         <div class="about-card-links">
-          <a href="https://wa.me/27815648219" class="about-card-link">WhatsApp</a>
-          <a href="mailto:dylannfortune@gmail.com" class="about-card-link">Email</a>
+          <button class="about-card-link" onclick="openWaModal()">WhatsApp</button>
+          <button class="about-card-link" onclick="openEmModal()">Email</button>
         </div>
       </div>
 
@@ -131,8 +194,8 @@
       <h2 class="contact-title">Ready to find the right<br><em>solution?</em></h2>
       <p class="contact-sub">No jargon. No pressure. Just an honest conversation about what your business needs and how to get there.</p>
       <div class="contact-actions">
-        <a href="https://wa.me/27815648219" class="btn-primary">WhatsApp us</a>
-        <a href="mailto:dylannfortune@gmail.com" class="btn-secondary">Send an email</a>
+        <button class="btn-primary" onclick="openWaModal()">WhatsApp us</button>
+        <button class="btn-secondary" onclick="openEmModal()">Send an email</button>
       </div>
     </div>
   </div>
@@ -141,7 +204,7 @@
 <!-- FOOTER -->
 <footer>
   <span class="footer-brand">Fortune Consulting &nbsp;&middot;&nbsp; Cape Town, South Africa &nbsp;&middot;&nbsp; 2026</span>
-  <span class="footer-right">dylannfortune@gmail.com</span>
+  <button class="footer-right" onclick="openEmModal()">dylannfortune@gmail.com</button>
 </footer>
 
 <script src="script.js"></script>
