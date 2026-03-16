@@ -6,86 +6,510 @@
 <title>Fortune Consulting — Software Solutions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<style>
+  :root {
+    --navy:        #0f1f5c;
+    --navy-deep:   #0a1540;
+    --navy-mid:    #1a2a6c;
+    --navy-light:  #2a3d8f;
+    --accent:      #8899cc;
+    --accent-light:#c5cfe8;
+    --white:       #ffffff;
+    --off-white:   #f7f6f2;
+    --text-muted:  rgba(255,255,255,0.5);
+    --text-soft:   rgba(255,255,255,0.75);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--off-white);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 60px;
+    background: rgba(10,21,64,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-logo-top  { font-size: 18px; font-weight: 500; color: var(--white); letter-spacing: 0.08em; }
+  .nav-logo-bottom { font-size: 10px; font-weight: 300; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px; font-weight: 400; color: var(--text-soft);
+    text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-cta {
+    font-size: 13px; font-weight: 400; color: var(--navy);
+    background: var(--white); padding: 12px 28px; border-radius: 2px;
+    text-decoration: none; letter-spacing: 0.06em;
+    transition: opacity 0.2s; white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* mobile menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 72px; left: 0; right: 0;
+    background: rgba(10,21,64,0.99);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 199;
+    flex-direction: column;
+    padding: 24px 28px 32px;
+    gap: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 15px; font-weight: 400; color: var(--text-soft);
+    text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: color 0.2s;
+  }
+  .mobile-menu a:last-of-type { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--white); }
+  .mobile-menu-cta {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+    font-size: 14px; font-weight: 400; color: var(--navy);
+    background: var(--white); padding: 16px;
+    border-radius: 2px; text-decoration: none; letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    background: var(--navy-deep);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 140px 60px 180px;
+  }
+  #home::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .hero-watermark {
+    position: absolute; right: -40px; bottom: -100px;
+    font-family: 'Playfair Display', serif; font-size: 580px;
+    color: rgba(255,255,255,0.022); line-height: 1;
+    user-select: none; pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    max-width: 1200px; margin: 0 auto; width: 100%;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 400; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--accent);
+    border: 1px solid rgba(136,153,204,0.4);
+    padding: 8px 20px; border-radius: 2px;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.15s forwards;
+  }
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(50px, 6.5vw, 100px);
+    font-weight: 400; line-height: 1.08; color: var(--white);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.3s forwards;
+  }
+  .hero-headline em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: clamp(15px, 1.8vw, 20px);
+    font-weight: 300; color: var(--text-soft);
+    max-width: 540px; line-height: 1.85;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.45s forwards;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.6s forwards;
+  }
+  .btn-primary {
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 400;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--navy); background: var(--white);
+    padding: 17px 40px; border-radius: 2px;
+    text-decoration: none; transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-secondary {
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 400;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--white); background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 17px 40px; border-radius: 2px;
+    text-decoration: none; transition: border-color 0.2s;
+    white-space: nowrap;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.7); }
+  .btn-pricing {
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 400;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); background: transparent;
+    border: 1px solid rgba(136,153,204,0.4);
+    padding: 17px 40px; border-radius: 2px;
+    text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .btn-pricing:hover { border-color: var(--accent); color: var(--white); }
+
+  /* hero stats */
+  .hero-stats {
+    position: absolute;
+    bottom: 48px; left: 60px; right: 60px;
+    display: flex; gap: 56px; flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 36px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.8s forwards;
+  }
+  .stat { display: flex; flex-direction: column; gap: 6px; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; color: var(--white); font-weight: 400;
+  }
+  .stat-label {
+    font-size: 11px; font-weight: 300; color: var(--text-muted);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+
+  /* scroll hint */
+  .scroll-hint {
+    position: absolute; right: 60px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    opacity: 0;
+    animation: fadeIn 1s 1.1s forwards;
+  }
+  .scroll-hint span {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-muted); writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px; height: 72px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    animation: scrollPulse 2.2s infinite;
+  }
+
+  /* ── SERVICES STRIP ── */
+  .services-strip {
+    background: var(--navy-mid);
+    padding: 24px 60px;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .strip-item {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    gap: 12px; padding: 0 16px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .strip-item:last-child { border-right: none; }
+  .strip-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .strip-text {
+    font-size: 12px; font-weight: 300; color: var(--text-soft);
+    letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--off-white);
+    padding: 120px 60px;
+  }
+  .about-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .about-left { display: flex; flex-direction: column; gap: 28px; }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--navy-light);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 3.8vw, 56px);
+    font-weight: 400; line-height: 1.18; color: var(--navy);
+  }
+  .section-title em { font-style: italic; color: var(--navy-light); }
+  .about-divider { width: 56px; height: 2px; background: var(--navy); border-radius: 1px; }
+  .about-body {
+    font-size: 16px; font-weight: 300; color: #444; line-height: 1.9;
+  }
+  .about-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--navy); text-decoration: none;
+    border-bottom: 1px solid var(--navy); padding-bottom: 4px;
+    transition: opacity 0.2s; width: fit-content;
+  }
+  .about-cta:hover { opacity: 0.6; }
+  .about-right { display: flex; flex-direction: column; gap: 18px; }
+  .about-card {
+    background: var(--navy-deep); border-radius: 4px;
+    padding: 44px; color: var(--white);
+    display: flex; flex-direction: column; gap: 22px;
+    position: relative; overflow: hidden;
+  }
+  .about-card::after {
+    content: 'EF';
+    position: absolute; right: -8px; bottom: -28px;
+    font-family: 'Playfair Display', serif; font-size: 150px;
+    color: rgba(255,255,255,0.04); line-height: 1; font-weight: 600;
+    pointer-events: none; user-select: none;
+  }
+  .about-card-name { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 400; color: var(--white); }
+  .about-card-role { font-size: 11px; font-weight: 300; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; }
+  .about-card-bio { font-size: 15px; font-weight: 300; color: var(--text-soft); line-height: 1.85; }
+  .about-card-divider { width: 100%; height: 1px; background: rgba(255,255,255,0.08); }
+  .about-card-links { display: flex; gap: 20px; }
+  .about-card-link {
+    font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent-light); text-decoration: none; transition: color 0.2s;
+  }
+  .about-card-link:hover { color: var(--white); }
+  .cred-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cred-item {
+    background: var(--white); border: 1px solid rgba(15,31,92,0.1);
+    border-radius: 4px; padding: 22px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .cred-label { font-size: 10px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .cred-value { font-size: 14px; font-weight: 400; color: var(--navy); }
+
+  /* ── PRICING TEASER ── */
+  #pricing-teaser {
+    background: var(--navy);
+    padding: 100px 60px;
+    position: relative; overflow: hidden;
+  }
+  #pricing-teaser::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .teaser-inner {
+    max-width: 1200px; margin: 0 auto; position: relative;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 60px; flex-wrap: wrap;
+  }
+  .teaser-left { display: flex; flex-direction: column; gap: 20px; max-width: 560px; }
+  .teaser-eyebrow { font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+  .teaser-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px); font-weight: 400;
+    line-height: 1.15; color: var(--white);
+  }
+  .teaser-title em { font-style: italic; color: var(--accent); }
+  .teaser-sub { font-size: 16px; font-weight: 300; color: var(--text-soft); line-height: 1.8; }
+  .teaser-right {
+    display: flex; flex-direction: column; gap: 16px; flex-shrink: 0;
+  }
+  .teaser-stat {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 20px 28px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px;
+  }
+  .teaser-stat-num {
+    font-family: 'Playfair Display', serif; font-size: 30px;
+    color: var(--white); font-weight: 400;
+  }
+  .teaser-stat-label { font-size: 13px; font-weight: 300; color: var(--text-muted); }
+  .teaser-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 400;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--navy); background: var(--white);
+    padding: 18px 44px; border-radius: 2px;
+    text-decoration: none; transition: opacity 0.2s;
+    margin-top: 8px; width: fit-content;
+  }
+  .teaser-btn:hover { opacity: 0.88; }
+  .teaser-btn-arrow { font-size: 16px; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--navy-light); padding: 100px 60px; }
+  .contact-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 60px; flex-wrap: wrap;
+  }
+  .contact-left { display: flex; flex-direction: column; gap: 20px; }
+  .contact-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 4vw, 54px); font-weight: 400;
+    color: var(--white); line-height: 1.15;
+  }
+  .contact-title em { font-style: italic; color: var(--accent-light); }
+  .contact-sub { font-size: 16px; font-weight: 300; color: var(--text-soft); max-width: 440px; line-height: 1.85; }
+  .contact-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy-deep); padding: 36px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap; gap: 14px;
+  }
+  .footer-brand { font-size: 13px; font-weight: 300; color: var(--text-muted); letter-spacing: 0.04em; }
+  .footer-right { font-size: 13px; font-weight: 300; color: var(--text-muted); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.25; transform: scaleY(0.9); }
+    50%       { opacity: 1;    transform: scaleY(1); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    nav { padding: 20px 28px; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+
+    #home { padding: 130px 28px 220px; }
+    .hero-stats { left: 28px; right: 28px; gap: 28px; bottom: 40px; }
+    .scroll-hint { display: none; }
+
+    .services-strip { flex-wrap: wrap; gap: 12px; padding: 20px 28px; }
+    .strip-item { border-right: none; justify-content: flex-start; flex: auto; }
+
+    #about { padding: 80px 28px; }
+    .about-inner { grid-template-columns: 1fr; gap: 48px; }
+
+    #pricing-teaser { padding: 80px 28px; }
+    .teaser-inner { flex-direction: column; align-items: flex-start; }
+    .teaser-right { width: 100%; }
+    .teaser-stat { flex: 1; }
+
+    #contact { padding: 80px 28px; }
+    .contact-inner { flex-direction: column; align-items: flex-start; }
+
+    footer { padding: 28px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-actions { flex-direction: column; }
+    .btn-primary, .btn-secondary, .btn-pricing { width: 100%; text-align: center; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .cred-row { grid-template-columns: 1fr; }
+    .contact-actions { flex-direction: column; }
+    .contact-actions a { text-align: center; }
+  }
+</style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     WHATSAPP MODAL
-══════════════════════════════════════ -->
-<div class="modal-overlay" id="wa-modal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('wa-modal')">&#10005;</button>
-    <div class="modal-icon wa">
-      <svg viewBox="0 0 24 24" fill="#25D366"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/></svg>
-    </div>
-    <h3>Open in WhatsApp</h3>
-    <p>Click the button below to open WhatsApp directly. If it doesn't open, copy the number or download WhatsApp first.</p>
-    <div class="modal-actions">
-      <button class="modal-btn primary" onclick="forceWhatsApp()">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/></svg>
-        Open WhatsApp Now
-      </button>
-      <div class="modal-divider"><span>or</span></div>
-      <div class="copy-row">
-        <span class="copy-val" id="wa-copy-display">+27 81 564 8219</span>
-        <button class="copy-btn" id="wa-copy-btn" onclick="copyWaNum()">Copy</button>
-      </div>
-      <a class="modal-btn secondary" href="https://www.whatsapp.com/download" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download WhatsApp Desktop
-      </a>
-    </div>
-    <p class="modal-note">After installing WhatsApp, restart your browser and try again.</p>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-     EMAIL MODAL
-══════════════════════════════════════ -->
-<div class="modal-overlay" id="em-modal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('em-modal')">&#10005;</button>
-    <div class="modal-icon em">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-    </div>
-    <h3>Send an Email</h3>
-    <p>Open Gmail or Outlook in your browser — no mail app needed. Or copy the address and paste it into whichever app you prefer.</p>
-    <div class="modal-actions">
-      <a class="modal-btn primary" id="gmail-btn" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-        Open in Gmail (browser)
-      </a>
-      <a class="modal-btn secondary" id="outlook-btn" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-        Open in Outlook Web
-      </a>
-      <button class="modal-btn secondary" onclick="tryMailto()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-        Open Mail App (if installed)
-      </button>
-      <div class="modal-divider"><span>or copy address</span></div>
-      <div class="copy-row">
-        <span class="copy-val" id="em-copy-display">dylannfortune@gmail.com</span>
-        <button class="copy-btn" id="em-copy-btn" onclick="copyEmAddr()">Copy</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
+  <a href="index.html" class="nav-logo">
     <span class="nav-logo-top">Fortune</span>
     <span class="nav-logo-bottom">Consulting</span>
-  </div>
+  </a>
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="nav-cta" onclick="openWaModal()">Book a call</button>
+  <div class="nav-right">
+    <a href="https://wa.me/27815648219" class="nav-cta">Book a call</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home"        onclick="closeMenu()">Home</a>
+  <a href="#about"       onclick="closeMenu()">About</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="#contact"     onclick="closeMenu()">Contact</a>
+  <a href="https://wa.me/27815648219" class="mobile-menu-cta">Book a call</a>
+</div>
 
 <!-- HERO -->
 <section id="home">
@@ -100,7 +524,8 @@
       Fortune Consulting helps small businesses and startups identify, plan and implement the right software solutions — without the jargon or confusion.
     </p>
     <div class="hero-actions">
-      <button class="btn-primary" onclick="openWaModal()">Free consultation</button>
+      <a href="https://wa.me/27815648219" class="btn-primary">Free consultation</a>
+      <a href="pricing.html" class="btn-pricing">View pricing</a>
       <a href="#about" class="btn-secondary">Learn more</a>
     </div>
   </div>
@@ -110,12 +535,16 @@
       <span class="stat-label">Initial consultation</span>
     </div>
     <div class="stat">
+      <span class="stat-num">R350</span>
+      <span class="stat-label">Hourly rate</span>
+    </div>
+    <div class="stat">
       <span class="stat-num">100%</span>
       <span class="stat-label">Independent advice</span>
     </div>
     <div class="stat">
       <span class="stat-num">ZA</span>
-      <span class="stat-label">Based in Cape Town</span>
+      <span class="stat-label">Cape Town based</span>
     </div>
   </div>
   <div class="scroll-hint">
@@ -148,7 +577,6 @@
       </p>
       <a href="#contact" class="about-cta">Work with us &rarr;</a>
     </div>
-
     <div class="about-right">
       <div class="about-card">
         <div>
@@ -160,11 +588,10 @@
         </p>
         <div class="about-card-divider"></div>
         <div class="about-card-links">
-          <button class="about-card-link" onclick="openWaModal()">WhatsApp</button>
-          <button class="about-card-link" onclick="openEmModal()">Email</button>
+          <a href="https://wa.me/27815648219" class="about-card-link">WhatsApp</a>
+          <a href="mailto:dylannfortune@gmail.com" class="about-card-link">Email</a>
         </div>
       </div>
-
       <div class="cred-row">
         <div class="cred-item">
           <span class="cred-label">Speciality</span>
@@ -187,15 +614,45 @@
   </div>
 </section>
 
-<!-- CONTACT BAND -->
+<!-- PRICING TEASER -->
+<section id="pricing-teaser">
+  <div class="teaser-inner">
+    <div class="teaser-left">
+      <span class="teaser-eyebrow">Transparent pricing</span>
+      <h2 class="teaser-title">Simple services,<br><em>clear prices.</em></h2>
+      <p class="teaser-sub">
+        From hourly advisory at R350/hr to full digital launch bundles. Every service is clearly priced — first consultation always free.
+      </p>
+      <a href="pricing.html" class="teaser-btn">
+        View full pricing &nbsp;<span class="teaser-btn-arrow">&rarr;</span>
+      </a>
+    </div>
+    <div class="teaser-right">
+      <div class="teaser-stat">
+        <span class="teaser-stat-num">R350</span>
+        <span class="teaser-stat-label">per hour — general consulting</span>
+      </div>
+      <div class="teaser-stat">
+        <span class="teaser-stat-num">R2,500</span>
+        <span class="teaser-stat-label">Digital Starter bundle</span>
+      </div>
+      <div class="teaser-stat">
+        <span class="teaser-stat-num">R7,500</span>
+        <span class="teaser-stat-label">Full Launch bundle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
     <div class="contact-left">
       <h2 class="contact-title">Ready to find the right<br><em>solution?</em></h2>
       <p class="contact-sub">No jargon. No pressure. Just an honest conversation about what your business needs and how to get there.</p>
       <div class="contact-actions">
-        <button class="btn-primary" onclick="openWaModal()">WhatsApp us</button>
-        <button class="btn-secondary" onclick="openEmModal()">Send an email</button>
+        <a href="https://wa.me/27815648219" class="btn-primary">WhatsApp us</a>
+        <a href="mailto:dylannfortune@gmail.com" class="btn-secondary">Send an email</a>
       </div>
     </div>
   </div>
@@ -204,9 +661,27 @@
 <!-- FOOTER -->
 <footer>
   <span class="footer-brand">Fortune Consulting &nbsp;&middot;&nbsp; Cape Town, South Africa &nbsp;&middot;&nbsp; 2026</span>
-  <button class="footer-right" onclick="openEmModal()">dylannfortune@gmail.com</button>
+  <span class="footer-right">dylannfortune@gmail.com</span>
 </footer>
 
-<script src="script.js"></script>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+
+  // Close menu on scroll
+  window.addEventListener('scroll', () => {
+    if (mobileMenu.classList.contains('open')) closeMenu();
+  }, { passive: true });
+</script>
 </body>
 </html>

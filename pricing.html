@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pricing — Fortune Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #0f1f5c;
+    --navy-deep:   #0a1540;
+    --navy-mid:    #1a2a6c;
+    --navy-light:  #2a3d8f;
+    --accent:      #8899cc;
+    --accent-light:#c5cfe8;
+    --white:       #ffffff;
+    --off-white:   #f7f6f2;
+    --off-white-2: #eeecea;
+    --border:      rgba(15,31,92,0.1);
+    --text-muted:  rgba(255,255,255,0.5);
+    --text-soft:   rgba(255,255,255,0.75);
+    --text-mid:    #555;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--off-white); color: var(--navy); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 60px;
+    background: rgba(10,21,64,0.97);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo { display: flex; flex-direction: column; line-height: 1.15; text-decoration: none; flex-shrink: 0; }
+  .nav-logo-top { font-size: 18px; font-weight: 500; color: var(--white); letter-spacing: 0.08em; }
+  .nav-logo-bottom { font-size: 10px; font-weight: 300; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 400; color: var(--text-soft); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--white); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+  .nav-cta { font-size: 13px; font-weight: 400; color: var(--navy); background: var(--white); padding: 12px 28px; border-radius: 2px; text-decoration: none; letter-spacing: 0.06em; transition: opacity 0.2s; white-space: nowrap; }
+  .nav-cta:hover { opacity: 0.85; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: rgba(10,21,64,0.99); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 199; flex-direction: column; padding: 24px 28px 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 15px; font-weight: 400; color: var(--text-soft); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+  .mobile-menu a:last-of-type { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--white); }
+  .mobile-menu-cta { margin-top: 20px; display: block; text-align: center; font-size: 14px; font-weight: 400; color: var(--navy); background: var(--white); padding: 16px; border-radius: 2px; text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* PAGE HERO */
+  .page-hero { background: var(--navy-deep); padding: 150px 60px 90px; position: relative; overflow: hidden; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+  .page-hero-watermark { position: absolute; right: -20px; bottom: -80px; font-family: 'Playfair Display', serif; font-size: 480px; color: rgba(255,255,255,0.022); line-height: 1; user-select: none; pointer-events: none; }
+  .page-hero-inner { position: relative; max-width: 1200px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+  .page-hero-left { display: flex; flex-direction: column; gap: 18px; }
+  .page-eyebrow { display: inline-block; font-size: 11px; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(136,153,204,0.4); padding: 8px 20px; border-radius: 2px; opacity: 0; animation: fadeUp 0.7s 0.15s forwards; width: fit-content; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(44px, 5.5vw, 84px); font-weight: 400; line-height: 1.08; color: var(--white); opacity: 0; animation: fadeUp 0.7s 0.3s forwards; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-sub { font-size: 16px; font-weight: 300; color: var(--text-soft); max-width: 480px; line-height: 1.85; opacity: 0; animation: fadeUp 0.7s 0.45s forwards; }
+  .page-hero-stats { display: flex; gap: 36px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s 0.6s forwards; }
+  .hero-stat { display: flex; flex-direction: column; gap: 6px; }
+  .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--white); font-weight: 400; }
+  .hero-stat-label { font-size: 11px; font-weight: 300; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* SECTIONS */
+  .section { padding: 90px 60px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow { display: block; font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 14px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(30px, 3.8vw, 50px); font-weight: 400; line-height: 1.15; color: var(--navy); margin-bottom: 14px; }
+  .section-title em { font-style: italic; color: var(--navy-light); }
+  .section-divider { width: 56px; height: 2px; background: var(--navy); border-radius: 1px; margin-bottom: 40px; }
+  .section-sub { font-size: 16px; font-weight: 300; color: var(--text-mid); line-height: 1.85; margin-bottom: 44px; max-width: 580px; }
+
+  /* HOURLY */
+  #hourly { background: var(--off-white); }
+  .hourly-card { background: var(--white); border: 1px solid var(--border); border-radius: 4px; display: grid; grid-template-columns: 260px 1fr; overflow: hidden; }
+  .hourly-left { background: var(--navy); padding: 44px 36px; display: flex; flex-direction: column; gap: 10px; }
+  .hourly-price { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 400; color: var(--white); line-height: 1; }
+  .hourly-unit { font-size: 14px; font-weight: 300; color: var(--accent); letter-spacing: 0.05em; }
+  .hourly-right { padding: 44px; display: flex; flex-direction: column; gap: 18px; }
+  .hourly-right h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; color: var(--navy); }
+  .hourly-right p { font-size: 15px; font-weight: 300; color: var(--text-mid); line-height: 1.85; }
+  .hourly-features { display: flex; flex-direction: column; gap: 10px; }
+  .hourly-feature { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 300; color: var(--text-mid); }
+  .feature-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--navy); flex-shrink: 0; }
+
+  /* SERVICES */
+  #oncetoff { background: var(--off-white-2); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .service-card { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 26px 26px 22px 30px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+  .service-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(15,31,92,0.09); }
+  .service-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--navy); }
+  .service-num { font-size: 10px; font-weight: 300; color: #bbb; letter-spacing: 0.1em; }
+  .service-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 400; color: var(--navy); line-height: 1.3; }
+  .service-desc { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.75; flex: 1; }
+  .service-footer { display: flex; align-items: baseline; justify-content: space-between; border-top: 1px solid rgba(15,31,92,0.07); padding-top: 10px; margin-top: 4px; }
+  .service-price { font-size: 15px; font-weight: 500; color: var(--navy); font-family: 'Playfair Display', serif; }
+  .service-freq { font-size: 11px; font-weight: 300; color: #999; }
+  .service-upsell { font-size: 11px; font-weight: 300; color: var(--accent); }
+
+  /* RETAINERS */
+  #retainers { background: var(--off-white); }
+  .retainers-list { display: flex; flex-direction: column; }
+  .retainer-row { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; border-bottom: 1px solid rgba(15,31,92,0.07); gap: 20px; flex-wrap: wrap; }
+  .retainer-row:first-child { border-top: 1px solid rgba(15,31,92,0.07); }
+  .retainer-left { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 200px; }
+  .retainer-name { font-size: 16px; font-weight: 400; color: var(--navy); }
+  .retainer-desc { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.65; }
+  .retainer-right { display: flex; align-items: baseline; gap: 3px; flex-shrink: 0; }
+  .retainer-price { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; color: var(--navy); }
+  .retainer-freq { font-size: 12px; font-weight: 300; color: #999; }
+
+  /* BUNDLES */
+  #bundles { background: var(--navy-deep); position: relative; overflow: hidden; }
+  #bundles::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+  #bundles .section-eyebrow { color: var(--accent); }
+  #bundles .section-title { color: var(--white); }
+  #bundles .section-title em { color: var(--accent); }
+  #bundles .section-divider { background: rgba(136,153,204,0.4); }
+  #bundles .section-sub { color: var(--text-soft); }
+  .bundles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .bundle-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; display: flex; flex-direction: column; overflow: hidden; transition: transform 0.2s; }
+  .bundle-card:hover { transform: translateY(-3px); }
+  .bundle-card.featured { background: rgba(255,255,255,0.07); border-color: var(--accent); }
+  .bundle-tag { background: var(--accent); color: var(--navy); font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; text-align: center; padding: 8px 0; }
+  .bundle-body { padding: 32px; display: flex; flex-direction: column; gap: 18px; flex: 1; }
+  .bundle-name { font-size: 13px; font-weight: 400; color: var(--text-soft); letter-spacing: 0.08em; text-transform: uppercase; }
+  .bundle-price { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 400; color: var(--white); line-height: 1; }
+  .bundle-once { font-size: 13px; font-weight: 300; color: var(--accent); margin-top: 6px; }
+  .bundle-divider { height: 1px; background: rgba(255,255,255,0.08); }
+  .bundle-items { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .bundle-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; font-weight: 300; color: var(--text-soft); line-height: 1.5; }
+  .bundle-item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .bundle-cta { display: block; text-align: center; font-size: 13px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; padding: 16px; margin: 0 32px 32px; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white); border-radius: 2px; transition: background 0.2s, border-color 0.2s; }
+  .bundle-cta:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); }
+  .bundle-card.featured .bundle-cta { background: var(--white); color: var(--navy); border-color: var(--white); }
+  .bundle-card.featured .bundle-cta:hover { opacity: 0.88; }
+
+  /* SUMMARY TABLE */
+  #summary { background: var(--off-white); }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 4px; }
+  .summary-table { width: 100%; min-width: 600px; border-collapse: collapse; }
+  .summary-table thead th { background: var(--navy); color: var(--white); font-size: 11px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 18px; text-align: left; white-space: nowrap; }
+  .summary-table tbody tr:nth-child(even) { background: var(--off-white-2); }
+  .summary-table tbody tr:nth-child(odd) { background: var(--white); }
+  .summary-table tbody tr:hover { background: rgba(15,31,92,0.04); }
+  .summary-table td { padding: 14px 18px; font-size: 13px; font-weight: 300; color: var(--text-mid); border-bottom: 1px solid rgba(15,31,92,0.05); vertical-align: middle; }
+  .summary-table td:first-child { font-weight: 400; color: var(--navy); }
+  .summary-table td:nth-child(3) { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); white-space: nowrap; }
+  .cat-row td { background: rgba(15,31,92,0.06) !important; font-size: 10px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-light); padding: 10px 18px; }
+
+  /* CONTACT */
+  #contact { background: var(--navy); padding: 100px 60px; }
+  .contact-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 60px; flex-wrap: wrap; }
+  .contact-left { display: flex; flex-direction: column; gap: 20px; }
+  .contact-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 400; color: var(--white); line-height: 1.15; }
+  .contact-title em { font-style: italic; color: var(--accent); }
+  .contact-sub { font-size: 16px; font-weight: 300; color: var(--text-soft); max-width: 440px; line-height: 1.85; }
+  .contact-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); background: var(--white); padding: 17px 40px; border-radius: 2px; text-decoration: none; transition: opacity 0.2s; white-space: nowrap; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-secondary { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.3); padding: 17px 40px; border-radius: 2px; text-decoration: none; transition: border-color 0.2s; white-space: nowrap; }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.7); }
+
+  /* FOOTER */
+  footer { background: var(--navy-deep); padding: 36px 60px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; gap: 14px; }
+  .footer-brand { font-size: 13px; font-weight: 300; color: var(--text-muted); letter-spacing: 0.04em; }
+  .footer-right { font-size: 13px; font-weight: 300; color: var(--text-muted); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 20px 28px; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .page-hero { padding: 120px 28px 70px; }
+    .page-hero-inner { flex-direction: column; align-items: flex-start; gap: 36px; }
+    .section { padding: 64px 28px; }
+    .hourly-card { grid-template-columns: 1fr; }
+    .hourly-left { padding: 32px 28px; }
+    .hourly-right { padding: 28px; }
+    .bundles-grid { grid-template-columns: 1fr; }
+    #contact { padding: 72px 28px; }
+    .contact-inner { flex-direction: column; align-items: flex-start; }
+    footer { padding: 28px; }
+  }
+  @media (max-width: 480px) {
+    .page-hero-stats { flex-direction: column; gap: 16px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .retainer-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .contact-actions { flex-direction: column; }
+    .contact-actions a { text-align: center; }
+    .bundle-body { padding: 24px; }
+    .bundle-cta { margin: 0 24px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-top">Fortune</span>
+    <span class="nav-logo-bottom">Consulting</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="pricing.html" class="active">Pricing</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://wa.me/27815648219" class="nav-cta">Book a call</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="pricing.html" style="color:var(--white);">Pricing</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="https://wa.me/27815648219" class="mobile-menu-cta">Book a call</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-watermark">F</div>
+  <div class="page-hero-inner">
+    <div class="page-hero-left">
+      <span class="page-eyebrow">Fortune Consulting — Services &amp; Pricing</span>
+      <h1 class="page-title">Transparent pricing,<br><em>no surprises.</em></h1>
+      <p class="page-sub">Every service is clearly priced. First consultation is always free — we only recommend what your business actually needs.</p>
+    </div>
+    <div class="page-hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">First consultation</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">R350</span><span class="hero-stat-label">Hourly rate</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">R2,500</span><span class="hero-stat-label">Starter bundle</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="hourly">
+  <div class="section-inner">
+    <span class="section-eyebrow">Hourly rate</span>
+    <h2 class="section-title">General <em>Consultation</em></h2>
+    <div class="section-divider"></div>
+    <div class="hourly-card">
+      <div class="hourly-left">
+        <span class="hourly-price">R350</span>
+        <span class="hourly-unit">per hour</span>
+      </div>
+      <div class="hourly-right">
+        <h3>Advisory &amp; ongoing support</h3>
+        <p>For clients who already know what they need and want expert support as they grow. Billed in one-hour increments with no lock-in or minimum commitment.</p>
+        <div class="hourly-features">
+          <div class="hourly-feature"><span class="feature-dot"></span>Advisory sessions and ongoing guidance</div>
+          <div class="hourly-feature"><span class="feature-dot"></span>Follow-up calls after initial consultation</div>
+          <div class="hourly-feature"><span class="feature-dot"></span>Quick problem-solving and tool recommendations</div>
+          <div class="hourly-feature"><span class="feature-dot"></span>Billed in one-hour increments</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="oncetoff">
+  <div class="section-inner">
+    <span class="section-eyebrow">A la carte offerings</span>
+    <h2 class="section-title">Individual <em>Services</em></h2>
+    <div class="section-divider"></div>
+    <p class="section-sub">Pick exactly what your business needs. Each service is a once-off engagement with optional monthly add-ons where available.</p>
+    <div class="services-grid">
+      <div class="service-card"><span class="service-num">01</span><h3 class="service-name">Google Business Setup</h3><p class="service-desc">Set up and optimise your Google Business listing so your business shows up on Google Maps and local searches from day one.</p><div class="service-footer"><span class="service-price">R500 – R800</span><span class="service-freq">once-off</span></div><span class="service-upsell">+ R300/mo optional management</span></div>
+      <div class="service-card"><span class="service-num">02</span><h3 class="service-name">WhatsApp Business Setup</h3><p class="service-desc">Professional profile, product catalogue, automated replies and away messages — fully configured and ready to convert visitors into customers.</p><div class="service-footer"><span class="service-price">R400 – R600</span><span class="service-freq">once-off</span></div><span class="service-upsell">+ R200/mo optional catalogue updates</span></div>
+      <div class="service-card"><span class="service-num">03</span><h3 class="service-name">Social Media Setup</h3><p class="service-desc">Logo, bio, banner and profile picture designed and set up for one platform. First posts created and scheduled. Ready to grow.</p><div class="service-footer"><span class="service-price">R800 – R1,500</span><span class="service-freq">per platform</span></div><span class="service-upsell">+ monthly content packages available</span></div>
+      <div class="service-card"><span class="service-num">04</span><h3 class="service-name">Software Stack Audit</h3><p class="service-desc">Review what tools your business is currently paying for, cut the waste and recommend better, more cost-effective alternatives.</p><div class="service-footer"><span class="service-price">R1,000 – R2,000</span><span class="service-freq">once-off</span></div><span class="service-upsell">+ implementation support available</span></div>
+      <div class="service-card"><span class="service-num">05</span><h3 class="service-name">Professional Email Setup</h3><p class="service-desc">Move your business off Gmail and onto a professional domain email like info@yourbusiness.co.za. Full setup and handover included.</p><div class="service-footer"><span class="service-price">R400 – R700</span><span class="service-freq">once-off</span></div><span class="service-upsell">+ ongoing IT support available</span></div>
+      <div class="service-card"><span class="service-num">06</span><h3 class="service-name">Payment &amp; POS Setup</h3><p class="service-desc">Get set up on Yoco, iKhokha or PayFast with full integration, testing and team training so you can start accepting payments immediately.</p><div class="service-footer"><span class="service-price">R600 – R1,000</span><span class="service-freq">once-off</span></div></div>
+      <div class="service-card"><span class="service-num">07</span><h3 class="service-name">Online Booking Setup</h3><p class="service-desc">Set up Calendly, SimplyBook or Fresha for salons, clinics and service businesses. Includes full configuration and staff training.</p><div class="service-footer"><span class="service-price">R600 – R1,200</span><span class="service-freq">once-off</span></div><span class="service-upsell">+ monthly management available</span></div>
+      <div class="service-card"><span class="service-num">08</span><h3 class="service-name">Basic SEO Consultation</h3><p class="service-desc">Understand how Google works, what keywords matter for your business and what practical changes help you rank better in local search.</p><div class="service-footer"><span class="service-price">R800 – R1,500</span><span class="service-freq">once-off</span></div><span class="service-upsell">+ monthly SEO monitoring available</span></div>
+      <div class="service-card"><span class="service-num">09</span><h3 class="service-name">Digital Presence Audit</h3><p class="service-desc">A full written report on where your business stands online — website, Google listing, social media, reviews and competitors — with clear recommendations.</p><div class="service-footer"><span class="service-price">R1,500 – R2,500</span><span class="service-freq">once-off</span></div><span class="service-upsell">+ implementation of findings available</span></div>
+      <div class="service-card"><span class="service-num">10</span><h3 class="service-name">Staff Digital Training</h3><p class="service-desc">Hands-on training for you and your team on how to use your new tools — website backend, WhatsApp Business, booking systems and more.</p><div class="service-footer"><span class="service-price">R500 – R1,000</span><span class="service-freq">per session</span></div><span class="service-upsell">+ ongoing training packages available</span></div>
+      <div class="service-card"><span class="service-num">11</span><h3 class="service-name">Competitor Analysis</h3><p class="service-desc">Research what your competitors are doing online and deliver a clear written findings report you can act on straight away.</p><div class="service-footer"><span class="service-price">R1,000 – R2,000</span><span class="service-freq">once-off</span></div></div>
+      <div class="service-card"><span class="service-num">12</span><h3 class="service-name">AI Tools Consultation</h3><p class="service-desc">Discover which AI tools can save your business time across bookkeeping, customer service and content creation — explained in plain language.</p><div class="service-footer"><span class="service-price">R800 – R1,500</span><span class="service-freq">once-off</span></div><span class="service-upsell">+ monthly advisory as AI evolves</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="retainers">
+  <div class="section-inner">
+    <span class="section-eyebrow">Recurring revenue offerings</span>
+    <h2 class="section-title">Monthly <em>Retainers</em></h2>
+    <div class="section-divider"></div>
+    <p class="section-sub">Ongoing support packages for businesses that want consistent advisory and management without the hourly billing.</p>
+    <div class="retainers-list">
+      <div class="retainer-row"><div class="retainer-left"><span class="retainer-name">General Consulting Retainer</span><span class="retainer-desc">Monthly strategy calls, WhatsApp support and ongoing advisory as your business grows.</span></div><div class="retainer-right"><span class="retainer-price">R500 – R1,500</span><span class="retainer-freq">/month</span></div></div>
+      <div class="retainer-row"><div class="retainer-left"><span class="retainer-name">Website Maintenance</span><span class="retainer-desc">Site updates, Google optimisation, performance checks and minor content changes.</span></div><div class="retainer-right"><span class="retainer-price">R300 – R600</span><span class="retainer-freq">/month</span></div></div>
+      <div class="retainer-row"><div class="retainer-left"><span class="retainer-name">Google Business Management</span><span class="retainer-desc">Monthly updates, review responses and local SEO optimisation to keep you ranking.</span></div><div class="retainer-right"><span class="retainer-price">R300</span><span class="retainer-freq">/month</span></div></div>
+      <div class="retainer-row"><div class="retainer-left"><span class="retainer-name">WhatsApp Catalogue Updates</span><span class="retainer-desc">Keep your business catalogue fresh with updated products, services and pricing.</span></div><div class="retainer-right"><span class="retainer-price">R200</span><span class="retainer-freq">/month</span></div></div>
+      <div class="retainer-row"><div class="retainer-left"><span class="retainer-name">ULM Dashboard Access</span><span class="retainer-desc">Ongoing access to the Nexium leads management dashboard with full support and reporting.</span></div><div class="retainer-right"><span class="retainer-price">R400 – R800</span><span class="retainer-freq">/month</span></div></div>
+      <div class="retainer-row"><div class="retainer-left"><span class="retainer-name">Monthly Content Package</span><span class="retainer-desc">Social media posts designed, written and scheduled for your business each month.</span></div><div class="retainer-right"><span class="retainer-price">R600 – R1,200</span><span class="retainer-freq">/month</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="bundles">
+  <div class="section-inner">
+    <span class="section-eyebrow">Service bundles</span>
+    <h2 class="section-title" style="color:var(--white);">Starter <em>Packs</em></h2>
+    <div class="section-divider"></div>
+    <p class="section-sub">Bundle services together and save. Perfect if you are starting from scratch and want everything handled in one engagement.</p>
+    <div class="bundles-grid">
+      <div class="bundle-card">
+        <div class="bundle-body">
+          <span class="bundle-name">Digital Starter</span>
+          <div><div class="bundle-price">R2,500</div><div class="bundle-once">once-off</div></div>
+          <div class="bundle-divider"></div>
+          <div class="bundle-items">
+            <div class="bundle-item"><span class="bundle-item-dot"></span>Google Business setup</div>
+            <div class="bundle-item"><span class="bundle-item-dot"></span>WhatsApp Business setup</div>
+            <div class="bundle-item"><span class="bundle-item-dot"></span>Social media setup (1 platform)</div>
+            <div class="bundle-item"><span class="bundle-item-dot"></span>Free initial consultation</div>
+          </div>
+        </div>
+        <a href="https://wa.me/27815648219?text=Hi%2C+I%27m+interested+in+the+Digital+Starter+bundle" class="bundle-cta">Get started</a>
+      </div>
+      <div class="bundle-card featured">
+        <div class="bundle-tag">Most popular</div>
+        <div class="bundle-body">
+          <span class="bundle-name">Growth Pack</span>
+          <div><div class="bundle-price">R4,500</div><div class="bundle-once">once-off</div></div>
+          <div class="bundle-divider"></div>
+          <div class="bundle-items">
+            <div class="bundle-item"><span class="bundle-item-dot"></span>Everything in Digital Starter</div>
+            <div class="bundle-item"><span class="bundle-item-dot"></span>Web development consultation (BBB)</div>
+            <div class="bundle-item"><span class="bundle-item-dot"></span>Software stack audit</div>
+            <div class="bundle-item"><span class="bundle-item-dot"></span>Digital presence audit</div>
+          </div>
+        </div>
+        <a href="https://wa.me/27815648219?text=Hi%2C+I%27m+interested+in+the+Growth+Pack+bundle" class="bundle-cta">Get started</a>
+      </div>
+      <div class="bundle-card">
+        <div class="bundle-body">
+          <span class="bundle-name">Full Launch</span>
+          <div><div class="bundle-price">R7,500</div><div class="bundle-once">once-off</div></div>
+          <div class="bundle-divider"></div>
+          <div class="bundle-items">
+            <div class="bundle-item"><span class="bundle-item-dot"></span>Everything in Growth Pack</div>
+            <div class="bundle-item"><span class="bundle-item-dot"></span>ULM consultation (Nexium)</div>
+            <div class="bundle-item"><span class="bundle-item-dot"></span>1 month retainer included</div>
+            <div class="bundle-item"><span class="bundle-item-dot"></span>Staff digital training session</div>
+          </div>
+        </div>
+        <a href="https://wa.me/27815648219?text=Hi%2C+I%27m+interested+in+the+Full+Launch+bundle" class="bundle-cta">Get started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="summary">
+  <div class="section-inner">
+    <span class="section-eyebrow">Full summary</span>
+    <h2 class="section-title">Pricing at <em>a glance</em></h2>
+    <div class="section-divider"></div>
+    <div class="table-wrap">
+      <table class="summary-table">
+        <thead><tr><th>Service</th><th>Type</th><th>Price (ZAR)</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr class="cat-row"><td colspan="4">Core Consultation</td></tr>
+          <tr><td>General Consultation</td><td>Hourly</td><td>R350/hr</td><td>No minimum commitment</td></tr>
+          <tr><td>Web Development Consultation</td><td>Once-off</td><td>R1,250</td><td>Via BuildsByBuchanan</td></tr>
+          <tr><td>ULM Consultation (Premium)</td><td>Once-off</td><td>R4,500</td><td>Nexium platform</td></tr>
+          <tr class="cat-row"><td colspan="4">Individual Services</td></tr>
+          <tr><td>Google Business Setup</td><td>Once-off</td><td>R500 – R800</td><td>Optional R300/mo mgmt</td></tr>
+          <tr><td>WhatsApp Business Setup</td><td>Once-off</td><td>R400 – R600</td><td>Optional R200/mo updates</td></tr>
+          <tr><td>Social Media Setup</td><td>Once-off</td><td>R800 – R1,500</td><td>Per platform</td></tr>
+          <tr><td>Software Stack Audit</td><td>Once-off</td><td>R1,000 – R2,000</td><td>—</td></tr>
+          <tr><td>Professional Email Setup</td><td>Once-off</td><td>R400 – R700</td><td>—</td></tr>
+          <tr><td>Payment &amp; POS Setup</td><td>Once-off</td><td>R600 – R1,000</td><td>—</td></tr>
+          <tr><td>Online Booking Setup</td><td>Once-off</td><td>R600 – R1,200</td><td>—</td></tr>
+          <tr><td>Basic SEO Consultation</td><td>Once-off</td><td>R800 – R1,500</td><td>Optional monthly monitoring</td></tr>
+          <tr><td>Digital Presence Audit</td><td>Once-off</td><td>R1,500 – R2,500</td><td>—</td></tr>
+          <tr><td>Staff Digital Training</td><td>Once-off</td><td>R500 – R1,000</td><td>Per session</td></tr>
+          <tr><td>Competitor Analysis</td><td>Once-off</td><td>R1,000 – R2,000</td><td>—</td></tr>
+          <tr><td>AI Tools Consultation</td><td>Once-off</td><td>R800 – R1,500</td><td>—</td></tr>
+          <tr class="cat-row"><td colspan="4">Monthly Retainers</td></tr>
+          <tr><td>General Consulting Retainer</td><td>Monthly</td><td>R500 – R1,500/mo</td><td>—</td></tr>
+          <tr><td>Website Maintenance</td><td>Monthly</td><td>R300 – R600/mo</td><td>—</td></tr>
+          <tr><td>ULM Dashboard Access</td><td>Monthly</td><td>R400 – R800/mo</td><td>Nexium platform</td></tr>
+          <tr class="cat-row"><td colspan="4">Bundles</td></tr>
+          <tr><td>Digital Starter Bundle</td><td>Once-off</td><td>R2,500</td><td>Google + WhatsApp + Social</td></tr>
+          <tr><td>Growth Bundle</td><td>Once-off</td><td>R4,500</td><td>Starter + Web + Audit</td></tr>
+          <tr><td>Full Launch Bundle</td><td>Once-off</td><td>R7,500</td><td>Growth + ULM + Retainer</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2 class="contact-title">Not sure where<br>to <em>start?</em></h2>
+      <p class="contact-sub">First consultation is always free. Just describe what your business does and we will tell you exactly what you need.</p>
+      <div class="contact-actions">
+        <a href="https://wa.me/27815648219" class="btn-primary">WhatsApp us</a>
+        <a href="mailto:dylannfortune@gmail.com" class="btn-secondary">Send an email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">Fortune Consulting &nbsp;&middot;&nbsp; Cape Town, South Africa &nbsp;&middot;&nbsp; 2026</span>
+  <span class="footer-right">dylannfortune@gmail.com</span>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+  window.addEventListener('scroll', () => { if (mobileMenu.classList.contains('open')) { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); } }, { passive: true });
+</script>
+</body>
+</html>
