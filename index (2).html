@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Fortune Consulting — Software Solutions</title>
+  <meta name="description" content="Fortune Consulting helps businesses identify, plan and implement the right software solutions — without the jargon or confusion." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      color: #0a1540;
+      background: #0a1540;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ─── CSS VARIABLES ─── */
+    :root {
+      --navy-deep:  #0a1540;
+      --navy:       #0f1f5c;
+      --navy-mid:   #1a2a6c;
+      --navy-light: #2a3d8f;
+      --accent:     #8899cc;
+      --accent-light: #c5cfe8;
+      --white:      #ffffff;
+      --off-white:  #f7f6f2;
+      --off-white-2: #eeecea;
+      --text-mid:   #555555;
+      --border:     rgba(15,31,92,0.1);
+      --max-w:      1200px;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--navy-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 2px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,21,64,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .nav-logo .logo-main {
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .nav-logo .logo-sub {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 8px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      line-height: 1;
+      margin-top: 3px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-cta:hover { background: var(--off-white); }
+
+    /* Mobile nav */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      min-width: 44px;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--white);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--navy-deep);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .mobile-menu a:hover { color: var(--accent); }
+    .mobile-menu .mob-cta {
+      margin-top: 16px;
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 2px;
+    }
+    .mobile-menu .dot-grid-mob {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy-deep);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 40px 80px;
+    }
+    .hero .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .hero-watermark {
+      position: absolute;
+      bottom: -60px;
+      right: -20px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(200px, 30vw, 420px);
+      color: rgba(255,255,255,0.022);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      transition: color 0.6s;
+    }
+    .hero-watermark.easter-glow { color: rgba(136,153,204,0.08) !important; }
+
+    .hero-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.1s forwards;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: 1.15;
+      color: var(--white);
+      max-width: 720px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.6);
+      max-width: 480px;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .btn-primary {
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 17px 40px;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 52px;
+    }
+    .btn-primary:hover { background: var(--off-white); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 17px 40px;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 52px;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.04); transform: translateY(-1px); }
+
+    .hero-stats {
+      margin-top: 80px;
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.55s forwards;
+    }
+    .hero-stat-item {}
+    .hero-stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--white);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 6px;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s forwards;
+    }
+    .hero-scroll span {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ─── TICKER ─── */
+    .ticker-wrap {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+      padding: 14px 0;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      animation: ticker 28s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 32px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .ticker-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ─── ABOUT ─── */
+    .about {
+      background: var(--off-white);
+      padding: 120px 40px;
+    }
+    .about-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .section-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .section-divider {
+      width: 56px;
+      height: 2px;
+      background: var(--navy);
+      margin-bottom: 28px;
+    }
+    .about h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.2;
+      color: var(--navy-deep);
+      margin-bottom: 24px;
+    }
+    .about h2 em { font-style: italic; color: var(--accent); }
+    .about-body p {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-mid);
+      margin-bottom: 16px;
+    }
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-top: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .about-link:hover { border-color: var(--navy); }
+    .about-link .arrow { transition: transform 0.2s; }
+    .about-link:hover .arrow { transform: translateX(4px); }
+
+    .about-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--navy);
+      padding: 40px;
+      border-radius: 4px;
+    }
+    .card-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 22px;
+      color: var(--navy-deep);
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+    .card-bio {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: var(--text-mid);
+      margin-bottom: 28px;
+    }
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .card-btn {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-btn:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .card-btn:active { transform: translateY(0); }
+    .card-btn.outline {
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid rgba(15,31,92,0.25);
+    }
+    .card-btn.outline:hover { background: rgba(15,31,92,0.04); }
+    .card-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+    .meta-item {}
+    .meta-key {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3px;
+    }
+    .meta-val {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--navy-deep);
+    }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      background: var(--navy);
+      padding: 120px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .cta-section .wm {
+      position: absolute;
+      bottom: -60px;
+      right: -20px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(180px, 28vw, 380px);
+      color: rgba(255,255,255,0.022);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .cta-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .cta-inner .section-eyebrow { color: var(--accent); }
+    .cta-inner .section-divider { background: var(--accent); margin: 0 auto 28px; }
+    .cta-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+    .cta-inner h2 em { font-style: italic; color: var(--accent); }
+    .cta-inner p {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.6);
+      max-width: 480px;
+      margin: 0 auto 44px;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy-deep);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 32px 40px;
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo .logo-main {
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--white);
+    }
+    .footer-logo .logo-sub {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .footer-copy {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+      cursor: default;
+    }
+    .footer-copy:hover { color: rgba(255,255,255,0.5); }
+
+    /* ─── WHATSAPP MODAL ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(10,21,64,0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--white);
+      border-radius: 4px;
+      padding: 40px;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      transform: translateY(16px);
+      transition: transform 0.25s;
+      border-left: 4px solid var(--navy);
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--text-mid);
+      padding: 8px;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--navy-deep);
+      margin-bottom: 8px;
+    }
+    .modal-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin-bottom: 28px;
+    }
+    .modal-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.15s;
+      margin-bottom: 10px;
+      min-height: 52px;
+      text-decoration: none;
+    }
+    .modal-btn:active { transform: scale(0.98); }
+    .modal-btn.primary { background: var(--navy); color: var(--white); }
+    .modal-btn.primary:hover { background: var(--navy-mid); }
+    .modal-btn.outline { background: transparent; color: var(--navy); border: 1px solid var(--border); }
+    .modal-btn.outline:hover { background: rgba(15,31,92,0.04); }
+    .modal-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: rgba(15,31,92,0.3);
+      letter-spacing: 0.1em;
+    }
+    .modal-divider::before, .modal-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .copy-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+    .copy-value {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--navy-deep);
+      flex: 1;
+    }
+    .copy-btn {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      min-height: 36px;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover { background: var(--navy-mid); }
+    .copy-btn.copied { background: #2a7a4a; }
+
+    /* ─── EMAIL MODAL ─── */
+    #emailModal .modal-btn.gmail { background: #EA4335; color: #fff; }
+    #emailModal .modal-btn.gmail:hover { background: #c5221f; }
+    #emailModal .modal-btn.outlook { background: #0078D4; color: #fff; }
+    #emailModal .modal-btn.outlook:hover { background: #005fa3; }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      z-index: 300;
+      background: var(--navy-deep);
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      padding: 14px 28px;
+      border-radius: 2px;
+      border-left: 3px solid var(--accent);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 0.7; transform: scaleY(1.2); }
+    }
+    @keyframes konami {
+      0%   { box-shadow: 0 0 0 0 rgba(136,153,204,0); }
+      50%  { box-shadow: 0 0 60px 20px rgba(136,153,204,0.15); }
+      100% { box-shadow: 0 0 0 0 rgba(136,153,204,0); }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .hero { padding: 100px 20px 60px; }
+      .hero-stats { gap: 32px; margin-top: 48px; }
+      .about { padding: 80px 20px; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .cta-section { padding: 80px 20px; }
+      footer { padding: 28px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 32px; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .card-actions { flex-direction: column; }
+      .card-btn { width: 100%; justify-content: center; }
+      .cta-actions { flex-direction: column; }
+      .modal-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo" id="navLogo">
+        <span class="logo-main">Fortune</span>
+        <span class="logo-sub">Consulting</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="https://wa.me/27815648219" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
+      <div class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── MOBILE MENU ─── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="dot-grid-mob"></div>
+    <a href="#home" onclick="closeMobile()">Home</a>
+    <a href="#about" onclick="closeMobile()">About</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
+    <a href="https://wa.me/27815648219" class="mob-cta" target="_blank" rel="noopener">Book a call</a>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="home">
+    <div class="dot-grid"></div>
+    <div class="hero-watermark" id="heroWatermark">F</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Software Solutions Consultant — Cape Town</div>
+      <h1>The right technology, for your <em>business.</em></h1>
+      <p class="hero-desc">Fortune Consulting helps businesses of all sizes identify, plan and implement the right software solutions — without the jargon or confusion.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/27815648219" class="btn-primary" target="_blank" rel="noopener">Free 30-min consultation</a>
+        <a href="#about" class="btn-secondary">Learn more</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-value">Free 30-min</div>
+          <div class="hero-stat-label">Initial consultation</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-value">100%</div>
+          <div class="hero-stat-label">Independent advice</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-value">ZA</div>
+          <div class="hero-stat-label">Based in Cape Town</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── TICKER ─── -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <!-- Two copies for seamless loop -->
+      <span class="ticker-item">Business strategy <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Software advisory <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Website solutions <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Digital growth <span class="ticker-dot"></span></span>
+      <span class="ticker-item">AI tools consulting <span class="ticker-dot"></span></span>
+      <span class="ticker-item">No jargon. No pressure. <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Business strategy <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Software advisory <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Website solutions <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Digital growth <span class="ticker-dot"></span></span>
+      <span class="ticker-item">AI tools consulting <span class="ticker-dot"></span></span>
+      <span class="ticker-item">No jargon. No pressure. <span class="ticker-dot"></span></span>
+    </div>
+  </div>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-body reveal">
+        <div class="section-eyebrow">About Fortune Consulting</div>
+        <div class="section-divider"></div>
+        <h2>Helping businesses make <em>smarter</em> decisions.</h2>
+        <p>Fortune Consulting was founded to bridge the gap between businesses and the technology they need to grow. Whether you run a lean startup, a growing retail brand, a service-based operation, or an established enterprise — we help you cut through the noise and find the tools that actually move the needle.</p>
+        <p>Many business owners know they need better digital tools, but don't know where to start. That is where we come in. We listen to what your business does, assess what software or digital solutions would make the biggest difference, and guide you through the process — from recommendation to implementation.</p>
+        <p>If you have a product or service to sell, we have a strategy to help you sell it better.</p>
+        <a href="pricing.html" class="about-link">View our services <span class="arrow">→</span></a>
+      </div>
+      <div class="reveal" style="transition-delay: 0.15s;">
+        <div class="about-card" id="contactSection">
+          <div class="card-label">Consultant & Co-Founder</div>
+          <div class="card-name">Enrico Fortune</div>
+          <div class="card-title">Business Strategy & Software Solutions</div>
+          <p class="card-bio">Business strategy consultant and co-founder of Nexium. Working closely with BuildsByBuchanan to deliver web and software solutions to businesses across South Africa — from first-time entrepreneurs to established brands.</p>
+          <div class="card-actions">
+            <a href="https://wa.me/27815648219" class="card-btn" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.55 4.11 1.512 5.843L.057 23.428a.5.5 0 00.609.61l5.68-1.49A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.95 0-3.78-.5-5.375-1.375L3.5 21.5l.894-3.063A10 10 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10z"/></svg>
+              WhatsApp
+            </a>
+            <button class="card-btn outline" onclick="openEmailModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+              Email
+            </button>
+          </div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-key">Speciality</div>
+              <div class="meta-val">Software strategy</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-key">Location</div>
+              <div class="meta-val">Cape Town, ZA</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-key">Partner</div>
+              <div class="meta-val">BuildsByBuchanan</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-key">First call</div>
+              <div class="meta-val">Always free</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section class="cta-section" id="contact">
+    <div class="dot-grid"></div>
+    <div class="wm">F</div>
+    <div class="cta-inner reveal">
+      <div class="section-eyebrow">Ready to find the right solution?</div>
+      <div class="section-divider"></div>
+      <h2>No jargon. No pressure. Just an <em>honest</em> conversation.</h2>
+      <p>Tell us what your business does and we'll tell you exactly what you need — and what you don't.</p>
+      <div class="cta-actions">
+        <a href="https://wa.me/27815648219" class="btn-primary" target="_blank" rel="noopener">WhatsApp us</a>
+        <button class="btn-secondary" onclick="openEmailModal()">Send an email</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="logo-main">Fortune <span style="font-weight:300;color:var(--accent);font-size:11px;letter-spacing:0.18em;">CONSULTING</span></div>
+        <div class="logo-sub">Cape Town · South Africa · 2026</div>
+      </div>
+      <div class="footer-copy" id="footerCopy"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5e3a27323f303038312c2a2b303b1e39333f3732703d3133">[email&#160;protected]</a></div>
+    </div>
+  </footer>
+
+  <!-- ─── WHATSAPP MODAL (kept for reference, not used on this page) ─── -->
+
+  <!-- ─── EMAIL MODAL ─── -->
+  <div class="modal-overlay" id="emailModal" onclick="handleOverlayClick(event,'emailModal')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('emailModal')" aria-label="Close">✕</button>
+      <div class="modal-title">Send an Email</div>
+      <p class="modal-desc">Open in your preferred email client, or copy the address and paste it wherever you need it.</p>
+      <a class="modal-btn gmail" href="https://mail.google.com/mail/?view=cm&to=dylannfortune@gmail.com" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Open in Gmail
+      </a>
+      <a class="modal-btn outlook" href="https://outlook.live.com/mail/0/deeplink/compose?to=dylannfortune@gmail.com" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Open in Outlook Web
+      </a>
+      <a class="modal-btn outline" href="/cdn-cgi/l/email-protection#3b5f42575a55555d54494f4e555e7b5c565a525715585456">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        Open Mail App
+      </a>
+      <div class="modal-divider">or copy address</div>
+      <div class="copy-row">
+        <span class="copy-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6d0914010c03030b021f191803082d0a000c0401430e0200">[email&#160;protected]</a></span>
+        <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TOAST ─── -->
+  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ─── HAMBURGER ───
+    const ham = document.getElementById('hamburger');
+    const mob = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      mob.classList.toggle('open');
+      document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMobile() {
+      ham.classList.remove('open');
+      mob.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ─── MODAL ───
+    function openEmailModal() {
+      document.getElementById('emailModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleOverlayClick(e, id) {
+      if (e.target === document.getElementById(id)) closeModal(id);
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(m => {
+          m.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      }
+    });
+
+    // ─── COPY EMAIL ───
+    function copyEmail(btn) {
+      navigator.clipboard.writeText('dylannfortune@gmail.com').then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // ─── TOAST ───
+    function showToast(msg, duration = 3000) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), duration);
+    }
+
+    // ─── SCROLL REVEAL ───
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    // ─── EASTER EGGS ───
+
+    // 1. Konami code → branded toast
+    const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let kIdx = 0;
+    document.addEventListener('keydown', e => {
+      if (e.key === konami[kIdx]) {
+        kIdx++;
+        if (kIdx === konami.length) {
+          kIdx = 0;
+          document.body.style.animation = 'konami 1.2s ease';
+          setTimeout(() => document.body.style.animation = '', 1200);
+          showToast('Consultant mode activated.', 3500);
+        }
+      } else kIdx = 0;
+    });
+
+    // 2. Triple-click the "F" watermark → accent glow
+    const wm = document.getElementById('heroWatermark');
+    let wmClicks = 0, wmTimer;
+    wm.addEventListener('click', () => {
+      wmClicks++;
+      clearTimeout(wmTimer);
+      wmTimer = setTimeout(() => wmClicks = 0, 600);
+      if (wmClicks >= 3) {
+        wmClicks = 0;
+        wm.classList.add('easter-glow');
+        showToast('Fortune Consulting · Cape Town · 2026');
+        setTimeout(() => wm.classList.remove('easter-glow'), 2000);
+      }
+    });
+
+    // 3. Footer triple-click → founder message
+    let fcClicks = 0, fcTimer;
+    document.getElementById('footerCopy').addEventListener('click', () => {
+      fcClicks++;
+      clearTimeout(fcTimer);
+      fcTimer = setTimeout(() => fcClicks = 0, 700);
+      if (fcClicks >= 3) {
+        fcClicks = 0;
+        showToast('Built by Enrico Fortune. No jargon. No pressure.', 4000);
+      }
+    });
+
+    // 4. Type "fortune" anywhere → subtle ripple toast
+    let secretBuf = '';
+    document.addEventListener('keypress', e => {
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+      secretBuf += e.key.toLowerCase();
+      if (secretBuf.length > 10) secretBuf = secretBuf.slice(-10);
+      if (secretBuf.endsWith('fortune')) {
+        secretBuf = '';
+        showToast('"The right technology, for your business."', 3500);
+      }
+    });
+
+    // 5. Nav logo long press (mobile) → founder tooltip
+    const navLogo = document.querySelector('.nav-logo');
+    let navLogoPress;
+    navLogo.addEventListener('touchstart', () => {
+      navLogoPress = setTimeout(() => {
+        showToast('Founded by Dylan Fortune · Cape Town · 2026', 3000);
+      }, 800);
+    }, { passive: true });
+    navLogo.addEventListener('touchend', () => clearTimeout(navLogoPress), { passive: true });
+  </script>
+
+</body>
+</html>
