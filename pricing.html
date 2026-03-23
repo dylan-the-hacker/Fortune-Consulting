@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Pricing & Services — Fortune Consulting | Cape Town Digital Strategy</title>
+  <meta name="description" content="Transparent pricing for Fortune Consulting services. Gateway packages from R800, monthly retainers, and enterprise solutions. Cape Town-based digital consultant." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      color: #0a1540;
+      background: #f7f6f2;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    button { font-family: inherit; }
+
+    /* ─── COLORS ─── */
+    :root {
+      --navy-deep:  #0a1540;
+      --navy:       #0f1f5c;
+      --navy-mid:   #1a2a6c;
+      --navy-light: #2a3d8f;
+      --accent:     #6b7eb8;
+      --accent-light: #8899cc;
+      --white:      #ffffff;
+      --off-white:  #f7f6f2;
+      --text-primary: #0a1540;
+      --text-secondary: #2a3454;
+      --border:     rgba(15,31,92,0.12);
+      --gold:       #c9a96e;
+      --max-w:      1200px;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 3px; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ─── NAV (SAME AS INDEX) ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10,21,64,0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      height: 72px;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      transition: all 0.3s ease;
+    }
+    nav.scrolled {
+      height: 64px;
+      background: rgba(10,21,64,0.98);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+    .nav-logo:hover {
+      transform: translateX(4px);
+    }
+    .nav-logo .logo-main {
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .nav-logo .logo-sub {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-top: 4px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 44px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      transition: all 0.3s ease;
+      padding: 8px 0;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--white);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover {
+      color: var(--white);
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .nav-links a.active {
+      color: var(--white);
+    }
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .nav-cta {
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-cta:hover {
+      background: var(--accent-light);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(136,153,204,0.3);
+    }
+
+    /* ─── HAMBURGER MENU (Phillco-inspired) ─── */
+    .hamburger {
+      display: none;
+      width: 30px;
+      height: 24px;
+      position: relative;
+      cursor: pointer;
+      padding: 8px;
+      min-width: 48px;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+    }
+    .hamburger span {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 30px;
+      background: var(--white);
+      border-radius: 2px;
+      opacity: 1;
+      left: 9px;
+      transform: rotate(0deg);
+      transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .hamburger span:nth-child(1) {
+      top: 11px;
+    }
+    .hamburger span:nth-child(2) {
+      top: 19px;
+    }
+    .hamburger span:nth-child(3) {
+      top: 27px;
+    }
+    .hamburger.open span:nth-child(1) {
+      top: 19px;
+      transform: rotate(135deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      left: -60px;
+    }
+    .hamburger.open span:nth-child(3) {
+      top: 19px;
+      transform: rotate(-135deg);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--navy-deep);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.5s ease;
+    }
+    .mobile-menu.open a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mobile-menu.open a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu.open a:nth-child(2) { transition-delay: 0.2s; }
+    .mobile-menu.open a:nth-child(3) { transition-delay: 0.3s; }
+    .mobile-menu.open a:nth-child(4) { transition-delay: 0.4s; }
+    .mobile-menu.open a:nth-child(5) { transition-delay: 0.5s; }
+    .mobile-menu a:hover {
+      color: var(--accent-light);
+      transform: translateX(10px);
+    }
+    .mobile-menu .mob-cta {
+      margin-top: 20px;
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      border-radius: 3px;
+    }
+    .mob-dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    /* ─── HERO ─── */
+    .pricing-hero {
+      min-height: 60vh;
+      background: var(--navy-deep);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 140px 40px 100px;
+    }
+    .pricing-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(107,126,184,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 20s ease-in-out infinite;
+    }
+    .pricing-hero .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      animation: fadeIn 2s ease;
+    }
+    .pricing-hero .wm {
+      position: absolute;
+      bottom: -70px;
+      right: -30px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(200px, 30vw, 420px);
+      color: rgba(255,255,255,0.02);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .pricing-hero-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .pricing-hero .eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .pricing-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(40px, 6.5vw, 62px);
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 32px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .pricing-hero h1 em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+    .pricing-hero p {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.75);
+      max-width: 620px;
+      margin: 0 auto;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    /* ─── MAIN CONTAINER ─── */
+    .pricing-body {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 100px 40px;
+    }
+
+    /* ─── SECTION BLOCKS ─── */
+    .section-block {
+      margin-bottom: 100px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--navy);
+      margin: 0 auto 24px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(32px, 4.5vw, 48px);
+      line-height: 1.2;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .section-header h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .section-subtitle {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ─── PRICING CARDS ─── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+    .pricing-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 40px 32px;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-light) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      border-radius: 8px 0 0 8px;
+    }
+    .pricing-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(10,21,64,0.15);
+      border-color: var(--accent);
+    }
+    .pricing-card:hover::before {
+      opacity: 1;
+    }
+    .card-tag {
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .card-price {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+    .card-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      min-height: 80px;
+    }
+    .card-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+    .card-features li {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--text-primary);
+      padding-left: 28px;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .card-features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+    }
+    .card-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 16px 28px;
+      border-radius: 3px;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      min-height: 52px;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+    }
+    .card-cta:hover {
+      background: var(--accent);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 24px rgba(107,126,184,0.4);
+    }
+
+    /* ─── RETAINER CARDS ─── */
+    .retainer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .retainer-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 40px 32px;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+    }
+    .retainer-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-light) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      border-radius: 8px 0 0 8px;
+    }
+    .retainer-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(10,21,64,0.15);
+      border-color: var(--accent);
+    }
+    .retainer-card:hover::before {
+      opacity: 1;
+    }
+    .retainer-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(107,126,184,0.03) 0%, rgba(136,153,204,0.05) 100%);
+    }
+    .retainer-card.featured::before {
+      opacity: 1;
+    }
+
+    /* ─── ENTERPRISE SECTION ─── */
+    .enterprise-block {
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+      border-radius: 8px;
+      padding: 60px 48px;
+      position: relative;
+      overflow: hidden;
+      border: 1.5px solid rgba(201,169,110,0.2);
+      transition: all 0.4s ease;
+    }
+    .enterprise-block:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(201,169,110,0.2);
+    }
+    .enterprise-block .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(201,169,110,0.04) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+    }
+    .enterprise-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .enterprise-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(201,169,110,0.15);
+      border: 1px solid rgba(201,169,110,0.3);
+      padding: 10px 20px;
+      border-radius: 24px;
+      margin-bottom: 28px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .enterprise-block h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      color: var(--gold);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .enterprise-block h3 em {
+      font-style: italic;
+      color: var(--white);
+    }
+    .enterprise-block p {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 32px;
+    }
+    .enterprise-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .enterprise-features li {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.9);
+      padding-left: 28px;
+      position: relative;
+      list-style: none;
+    }
+    .enterprise-features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+    }
+    .enterprise-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--gold);
+      color: var(--navy-deep);
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 18px 36px;
+      border-radius: 3px;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      min-height: 54px;
+    }
+    .enterprise-cta:hover {
+      background: var(--white);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 24px rgba(201,169,110,0.4);
+    }
+
+    /* ─── CUSTOM BUILD BLOCK ─── */
+    .custom-build {
+      background: var(--navy-deep);
+      border-radius: 8px;
+      padding: 60px 48px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      transition: all 0.4s ease;
+    }
+    .custom-build:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(10,21,64,0.3);
+    }
+    .custom-build .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+    }
+    .custom-build-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .custom-build h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .custom-build h3 em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+    .custom-build p {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 36px;
+    }
+    .custom-build-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 18px 36px;
+      border-radius: 3px;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      min-height: 54px;
+    }
+    .custom-build-cta:hover {
+      background: var(--accent-light);
+      color: var(--white);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 24px rgba(136,153,204,0.4);
+    }
+
+    /* ─── TABLE ─── */
+    .alacarte-table {
+      width: 100%;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .alacarte-table thead {
+      background: var(--off-white);
+      border-bottom: 1.5px solid var(--border);
+    }
+    .alacarte-table th {
+      font-family: 'Jost', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      padding: 20px 24px;
+      text-align: left;
+    }
+    .alacarte-table td {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--text-secondary);
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .alacarte-table td strong {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .alacarte-table .price-cell {
+      text-align: right;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .alacarte-table tbody tr {
+      transition: background 0.3s ease;
+    }
+    .alacarte-table tbody tr:hover {
+      background: rgba(107,126,184,0.04);
+    }
+
+    /* ─── INFO NOTE ─── */
+    .info-note {
+      background: rgba(107,126,184,0.08);
+      border-left: 4px solid var(--accent);
+      padding: 28px 32px;
+      border-radius: 6px;
+    }
+    .info-note-title {
+      font-family: 'Jost', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .info-note-text {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy-deep);
+      padding: 60px 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+    .footer-logo .logo-main {
+      font-family: 'Jost', sans-serif;
+      font-size: 15px;
+      color: var(--white);
+    }
+    .footer-logo .logo-sub {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--accent-light);
+      margin-top: 6px;
+    }
+    .footer-copy {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .footer-copy:hover {
+      color: var(--accent-light);
+    }
+
+    /* ─── EMAIL MODAL (SAME AS INDEX) ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(10,21,64,0.95);
+      backdrop-filter: blur(16px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-box {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 48px;
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 24px 72px rgba(0,0,0,0.4);
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .modal-overlay.open .modal-box {
+      transform: scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      min-width: 48px;
+      min-height: 48px;
+    }
+    .modal-close:hover {
+      background: var(--off-white);
+      color: var(--navy);
+      transform: rotate(90deg);
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .modal-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+    .modal-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      padding: 18px 24px;
+      border-radius: 3px;
+      margin-bottom: 16px;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      text-align: left;
+      min-height: 54px;
+    }
+    .modal-btn:hover {
+      background: var(--accent);
+      transform: translateX(8px);
+      box-shadow: 0 4px 16px rgba(107,126,184,0.3);
+    }
+    .modal-btn.gmail { background: #ea4335; }
+    .modal-btn.gmail:hover { background: #d33426; }
+    .modal-btn.outlook { background: #0078d4; }
+    .modal-btn.outlook:hover { background: #006cbe; }
+    .modal-btn.outline {
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid var(--border);
+    }
+    .modal-btn.outline:hover {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+      transform: translateX(0) scale(1.02);
+    }
+    .modal-divider {
+      text-align: center;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin: 32px 0 28px;
+      position: relative;
+    }
+    .modal-divider::before,
+    .modal-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 36%;
+      height: 1px;
+      background: var(--border);
+    }
+    .modal-divider::before { left: 0; }
+    .modal-divider::after { right: 0; }
+    .copy-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--off-white);
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      padding: 16px 20px;
+    }
+    .copy-value {
+      flex: 1;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .copy-btn {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      min-height: 42px;
+      min-width: 76px;
+    }
+    .copy-btn:hover {
+      background: var(--accent);
+      transform: scale(1.05);
+    }
+    .copy-btn.copied {
+      background: #2ecc71;
+    }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: var(--navy-deep);
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      padding: 20px 36px;
+      border-radius: 3px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+      z-index: 300;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { height: 64px; padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      
+      .pricing-hero { padding: 120px 24px 80px; }
+      .pricing-body { padding: 80px 24px; }
+      
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      .retainer-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .enterprise-block {
+        padding: 48px 32px;
+      }
+      .custom-build {
+        padding: 48px 32px;
+      }
+      
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .modal-box {
+        padding: 36px 28px;
+      }
+      
+      .alacarte-table {
+        font-size: 13px;
+      }
+      .alacarte-table th,
+      .alacarte-table td {
+        padding: 16px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-main">Fortune <span style="font-weight:300;color:var(--accent-light);font-size:12px;letter-spacing:0.18em;">CONSULTING</span></div>
+        <div class="logo-sub">Cape Town</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pricing.html" class="active">Pricing</a></li>
+        <li><a href="why.html">Why</a></li>
+      </ul>
+      <a href="https://wa.me/27815648219" class="nav-cta" target="_blank" rel="noopener">WhatsApp</a>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mob-dot-grid"></div>
+    <a href="index.html" onclick="closeMobile()">Home</a>
+    <a href="pricing.html" onclick="closeMobile()">Pricing</a>
+    <a href="why.html" onclick="closeMobile()">Why</a>
+    <a href="https://wa.me/27815648219" class="mob-cta" target="_blank" rel="noopener">WhatsApp us</a>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <section class="pricing-hero">
+    <div class="dot-grid"></div>
+    <div class="wm">P</div>
+    <div class="pricing-hero-inner">
+      <div class="eyebrow">Pricing & Services</div>
+      <h1>Transparent pricing. <em>No surprises.</em></h1>
+      <p>All prices are quoted upfront. What you see is what you pay. Free 30-minute consultation to determine the best solution for your business.</p>
+    </div>
+  </section>
+
+  <!-- ─── MAIN PRICING BODY ─── -->
+  <div class="pricing-body">
+
+    <!-- ─── GATEWAY SERVICES ─── -->
+    <section class="section-block">
+      <div class="section-header">
+        <div class="section-eyebrow">Getting Started</div>
+        <div class="section-divider"></div>
+        <h2>Gateway <em>Services</em></h2>
+        <p class="section-subtitle">Fast-impact foundational solutions to get your business visible online. Most businesses start here.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="card-tag">Gateway</div>
+          <h3 class="card-title">Google Business Profile</h3>
+          <div class="card-price">R500–R800 once-off</div>
+          <p class="card-desc">Get found when customers search for your services on Google Maps and Search.</p>
+          <ul class="card-features">
+            <li>Complete profile setup and verification</li>
+            <li>Service area optimization</li>
+            <li>Photo upload and optimization</li>
+            <li>Review management setup</li>
+          </ul>
+          <a href="https://wa.me/27815648219?text=Hi%2C%20I'm%20interested%20in%20Google%20Business%20Profile%20setup" class="card-cta" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.55 4.11 1.512 5.843L.057 23.428a.5.5 0 00.609.61l5.68-1.49A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.95 0-3.78-.5-5.375-1.375L3.5 21.5l.894-3.063A10 10 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10z"/></svg>
+            Get started
+          </a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="card-tag">Gateway</div>
+          <h3 class="card-title">WhatsApp Business</h3>
+          <div class="card-price">R400–R600 once-off</div>
+          <p class="card-desc">Professional WhatsApp setup with automated responses and customer management.</p>
+          <ul class="card-features">
+            <li>WhatsApp Business profile setup</li>
+            <li>Automated greeting and away messages</li>
+            <li>Quick reply templates</li>
+            <li>Labels and contact organization</li>
+          </ul>
+          <a href="https://wa.me/27815648219?text=Hi%2C%20I'm%20interested%20in%20WhatsApp%20Business%20setup" class="card-cta" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.55 4.11 1.512 5.843L.057 23.428a.5.5 0 00.609.61l5.68-1.49A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.95 0-3.78-.5-5.375-1.375L3.5 21.5l.894-3.063A10 10 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10z"/></svg>
+            Get started
+          </a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="card-tag">Gateway</div>
+          <h3 class="card-title">Social Media Setup</h3>
+          <div class="card-price">R800–R1,500 per platform</div>
+          <p class="card-desc">Professional setup and optimization for Instagram, Facebook, or LinkedIn business pages.</p>
+          <ul class="card-features">
+            <li>Complete profile optimization</li>
+            <li>Bio and content strategy</li>
+            <li>Visual branding consistency</li>
+            <li>Initial posting calendar template</li>
+          </ul>
+          <a href="https://wa.me/27815648219?text=Hi%2C%20I'm%20interested%20in%20Social%20Media%20setup" class="card-cta" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.55 4.11 1.512 5.843L.057 23.428a.5.5 0 00.609.61l5.68-1.49A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.95 0-3.78-.5-5.375-1.375L3.5 21.5l.894-3.063A10 10 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10z"/></svg>
+            Get started
+          </a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="card-tag">Gateway</div>
+          <h3 class="card-title">Digital Presence Audit</h3>
+          <div class="card-price">R1,500–R2,500 once-off</div>
+          <p class="card-desc">Comprehensive review of your current digital presence with actionable recommendations.</p>
+          <ul class="card-features">
+            <li>Website and SEO analysis</li>
+            <li>Social media presence review</li>
+            <li>Competitor benchmarking</li>
+            <li>Prioritized action plan</li>
+          </ul>
+          <a href="https://wa.me/27815648219?text=Hi%2C%20I'm%20interested%20in%20a%20Digital%20Presence%20Audit" class="card-cta" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.55 4.11 1.512 5.843L.057 23.428a.5.5 0 00.609.61l5.68-1.49A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.95 0-3.78-.5-5.375-1.375L3.5 21.5l.894-3.063A10 10 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10z"/></svg>
+            Get started
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MONTHLY RETAINERS -->
+    <section class="section-block">
+      <div class="section-header">
+        <div class="section-eyebrow">Ongoing Support</div>
+        <div class="section-divider"></div>
+        <h2>Monthly <em>Retainers</em></h2>
+        <p class="section-subtitle">Continuous optimization and support to keep your business growing online.</p>
+      </div>
+
+      <div class="retainer-grid">
+        <div class="retainer-card">
+          <div class="card-tag">Essentials</div>
+          <h3 class="card-title">Essentials</h3>
+          <div class="card-price">R500–R1,500/month</div>
+          <p class="card-desc">Light-touch support for businesses that just need someone keeping an eye on things.</p>
+          <ul class="card-features">
+            <li>Monthly digital health check</li>
+            <li>Google Business and WhatsApp maintenance</li>
+            <li>Review monitoring and response</li>
+            <li>Monthly performance report</li>
+          </ul>
+          <a href="https://wa.me/27815648219?text=Hi%2C%20I'm%20interested%20in%20the%20Essentials%20retainer" class="card-cta" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.55 4.11 1.512 5.843L.057 23.428a.5.5 0 00.609.61l5.68-1.49A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.95 0-3.78-.5-5.375-1.375L3.5 21.5l.894-3.063A10 10 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10z"/></svg>
+            Get started
+          </a>
+        </div>
+
+        <div class="retainer-card featured">
+          <div class="card-tag">Growth</div>
+          <h3 class="card-title">Growth</h3>
+          <div class="card-price">R1,200–R2,500/month</div>
+          <p class="card-desc">Active support for businesses looking to scale their digital presence and conversions.</p>
+          <ul class="card-features">
+            <li>Everything in Essentials</li>
+            <li>Social media content calendar</li>
+            <li>Monthly SEO optimization</li>
+            <li>A/B testing and conversion tracking</li>
+            <li>Bi-weekly strategy calls</li>
+          </ul>
+          <a href="https://wa.me/27815648219?text=Hi%2C%20I'm%20interested%20in%20the%20Growth%20retainer" class="card-cta" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.55 4.11 1.512 5.843L.057 23.428a.5.5 0 00.609.61l5.68-1.49A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.95 0-3.78-.5-5.375-1.375L3.5 21.5l.894-3.063A10 10 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10z"/></svg>
+            Get started
+          </a>
+        </div>
+
+        <div class="retainer-card">
+          <div class="card-tag">Professional</div>
+          <h3 class="card-title">Professional</h3>
+          <div class="card-price">R2,500+/month</div>
+          <p class="card-desc">Full-service digital partnership for businesses serious about growth.</p>
+          <ul class="card-features">
+            <li>Everything in Growth</li>
+            <li>Custom automation and integrations</li>
+            <li>Advanced analytics and reporting</li>
+            <li>Priority support (response within 2 hours)</li>
+            <li>Weekly strategy sessions</li>
+          </ul>
+          <a href="https://wa.me/27815648219?text=Hi%2C%20I'm%20interested%20in%20the%20Professional%20retainer" class="card-cta" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.55 4.11 1.512 5.843L.057 23.428a.5.5 0 00.609.61l5.68-1.49A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.95 0-3.78-.5-5.375-1.375L3.5 21.5l.894-3.063A10 10 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10z"/></svg>
+            Get started
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENTERPRISE -->
+    <section class="section-block">
+      <div class="enterprise-block">
+        <div class="dot-grid"></div>
+        <div class="enterprise-inner">
+          <div class="enterprise-status">
+            <span class="status-dot"></span>
+            Launching Q3 2026
+          </div>
+          <h3>Enterprise <em>Solutions</em></h3>
+          <p>For businesses requiring custom platforms, complex integrations, or bespoke software solutions. We partner with BuildsByBuchanan to deliver scalable, enterprise-grade systems built from the ground up.</p>
+          <ul class="enterprise-features">
+            <li>Custom CRM and lead management systems</li>
+            <li>Bespoke booking and scheduling platforms</li>
+            <li>API integrations and automation workflows</li>
+            <li>Multi-location management dashboards</li>
+            <li>White-label client portals</li>
+            <li>Custom reporting and analytics tools</li>
+          </ul>
+          <a href="https://wa.me/27815648219?text=Hi%2C%20I'd%20like%20to%20join%20the%20Enterprise%20Solutions%20waitlist" class="enterprise-cta" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+              <polyline points="17 21 17 13 7 13 7 21"/>
+              <polyline points="7 3 7 8 15 8"/>
+            </svg>
+            Join Waitlist
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOM SOLUTIONS -->
+    <section class="section-block">
+      <div class="custom-build">
+        <div class="dot-grid"></div>
+        <div class="custom-build-inner">
+          <h3>Custom <em>Solutions</em></h3>
+          <p>If your requirements don't fit our standard packages, we can build custom solutions tailored to your specific business needs. Complex integrations, bespoke platforms, or unique workflows — let's discuss what you're trying to achieve.</p>
+          <a href="https://wa.me/27815648219?text=Hi%2C%20I%20need%20a%20custom%20solution%20for%20my%20business" class="custom-build-cta" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Discuss Your Project
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- À LA CARTE -->
+    <section class="section-block">
+      <div class="section-header">
+        <div class="section-eyebrow">Additional Services</div>
+        <div class="section-divider"></div>
+        <h2>À La Carte <em>Services</em></h2>
+        <p class="section-subtitle">Individual services available on demand. No monthly commitment required.</p>
+      </div>
+
+      <table class="alacarte-table">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Description</th>
+            <th style="text-align: right;">Price Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Professional Email Setup</strong></td>
+            <td>Custom domain email configuration</td>
+            <td class="price-cell">R400–R700</td>
+          </tr>
+          <tr>
+            <td><strong>Payment & POS Setup</strong></td>
+            <td>Payment gateway integration (Yoco, SnapScan, PayFast)</td>
+            <td class="price-cell">R600–R1,000</td>
+          </tr>
+          <tr>
+            <td><strong>Online Booking Setup</strong></td>
+            <td>Appointment scheduling system</td>
+            <td class="price-cell">R600–R1,200</td>
+          </tr>
+          <tr>
+            <td><strong>SEO Consultation</strong></td>
+            <td>Search engine optimization analysis and recommendations</td>
+            <td class="price-cell">R800–R1,500</td>
+          </tr>
+          <tr>
+            <td><strong>Software Stack Audit</strong></td>
+            <td>Comprehensive review of current tools and systems</td>
+            <td class="price-cell">R1,000–R2,000</td>
+          </tr>
+          <tr>
+            <td><strong>Staff Digital Training</strong></td>
+            <td>Team training on digital tools and processes</td>
+            <td class="price-cell">R500–R1,000 per session</td>
+          </tr>
+          <tr>
+            <td><strong>Competitor Analysis</strong></td>
+            <td>Detailed competitive landscape report</td>
+            <td class="price-cell">R1,000–R2,000</td>
+          </tr>
+          <tr>
+            <td><strong>AI Tools Consultation</strong></td>
+            <td>AI implementation strategy and tool recommendations</td>
+            <td class="price-cell">R800–R1,500</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-note">
+        <div class="info-note-title">Pricing Philosophy</div>
+        <div class="info-note-text">Price ranges reflect varying complexity. Simple setups start at the lower end, complex implementations reach the upper range. We always provide written quotes before starting work, and our free 30-minute consultation helps determine accurate pricing for your specific needs.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="logo-main">Fortune <span style="font-weight:300;color:var(--accent-light);font-size:11px;letter-spacing:0.18em;">CONSULTING</span></div>
+        <div class="logo-sub">Cape Town · South Africa · 2026</div>
+      </div>
+      <div class="footer-copy" id="footerCopy">© 2026 Fortune Consulting</div>
+    </div>
+  </footer>
+
+  <!-- EMAIL MODAL -->
+  <div class="modal-overlay" id="emailModal" onclick="handleOverlayClick(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+      <div class="modal-title">Send an Email</div>
+      <p class="modal-desc">Open in your preferred email client, or copy the address.</p>
+      <a class="modal-btn gmail" href="https://mail.google.com/mail/?view=cm&to=dylannfortune@gmail.com" target="_blank" rel="noopener">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Open in Gmail
+      </a>
+      <a class="modal-btn outlook" href="https://outlook.live.com/mail/0/deeplink/compose?to=dylannfortune@gmail.com" target="_blank" rel="noopener">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Open in Outlook Web
+      </a>
+      <a class="modal-btn outline" href="mailto:dylannfortune@gmail.com">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        Open Mail App
+      </a>
+      <div class="modal-divider">or copy address</div>
+      <div class="copy-row">
+        <span class="copy-value">dylannfortune@gmail.com</span>
+        <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // HAMBURGER
+    const ham = document.getElementById('hamburger');
+    const mob = document.getElementById('mobileMenu');
+    
+    ham.addEventListener('click', function() {
+      ham.classList.toggle('open');
+      mob.classList.toggle('open');
+      document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+    });
+    
+    function closeMobile() {
+      ham.classList.remove('open');
+      mob.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // EMAIL MODAL
+    function openEmailModal() {
+      const modal = document.getElementById('emailModal');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('emailModal');
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('emailModal')) {
+        closeModal();
+      }
+    }
+    
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // COPY EMAIL
+    function copyEmail(btn) {
+      navigator.clipboard.writeText('dylannfortune@gmail.com').then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // TOAST
+    function showToast(msg, duration) {
+      duration = duration || 3000;
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function() {
+        t.classList.remove('show');
+      }, duration);
+    }
+
+    // NAV SCROLL
+    window.addEventListener('scroll', function() {
+      const nav = document.getElementById('mainNav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // EASTER EGG
+    let fcClicks = 0;
+    let fcTimer;
+    document.getElementById('footerCopy').addEventListener('click', function() {
+      fcClicks++;
+      clearTimeout(fcTimer);
+      fcTimer = setTimeout(function() {
+        fcClicks = 0;
+      }, 700);
+      if (fcClicks >= 3) {
+        fcClicks = 0;
+        showToast('Built by Dylan Fortune. Transparent pricing. No surprises.', 4000);
+      }
+    });
+  </script>
+
+</body>
+</html>
